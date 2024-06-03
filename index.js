@@ -1,81 +1,91 @@
 import express from "express"
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import bodyParser from "body-parser";
+import pg from 'pg';
+
+const { Pool, Client } = pg
+ 
+const pool = new Pool({
+  user: 'postgres',
+  password: '0627',
+  host: 'localhost',
+  port: 5432,
+  database: 'music',
+})
+ 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const port = 3000;
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+app.post("/register", async(req, res) => {
+  
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(-1)
+  })
+   
+  const client = await pool.connect()
+  const text = 'INSERT INTO users(userid, username, email, userpassword) VALUES($1, $2, $3, $4) RETURNING *'
+  var userid = 105;
+  var username = req.body["username"];
+  var email = req.body["email"];
+  var password = req.body["password"];
+  const values = [userid, username, email, password];
+  const result = await client.query(text, values);
+  console.log(result.rows[0]);
+  
+  client.release();
+  res.sendFile(__dirname + "/public/login.html");
+
+  /*
+  await client.connect()
+  const text = 'INSERT INTO users(userid, username, email, userpassword) VALUES($1, $2, $3, $4) RETURNING *'
+  var userid = 100;
+  var username = req.body["username"];
+  var email = req.body["email"];
+  var password = req.body["password"];
+  const values = [userid, username, email, password];
+ 
+  await client.query(text, values)
+  
+  */
+});
+
+app.post("/login", async(req, res) => {
+
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(-1)
+  })
+   
+  const client = await pool.connect()
+
+  var password = req.body["password"];
+  var username = req.body["username"];
+  const text = `SELECT userpassword FROM users WHERE username = $1`;
+  const values = [password];
+
+  const result = await client.query(text, values);
+  if (result.rows[0] != undefined && result.rows[0]["userpassword"] == password) {
+    res.send(`<h1>Welcome back, </h1><h2>${username}✌️</h2>`);
+  } else {
+    res.redirect("/");
+  }
+  
+  client.release();
+
+});
 
 app.listen(port, ()=> {
     console.log(`Server running on port ${port}.`);
 });
 
-var client_id = 'e6e44eeb658e4d5989f3ad9cf2211eb4';
-var client_secret = '891589ed2ebe4135b6132c735688dd33';
-export var artist_id;
-
-async function getToken() {
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    body: new URLSearchParams({
-      'grant_type': 'client_credentials',
-    }),
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64')),
-    },
-  });
-
-  return await response.json();
-}
-
-async function getTrackInfo(access_token) {
-  const response = await fetch("https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT", {
-    method: 'GET',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-  });
-
-  return await response.json();
-}
-
-async function getIDByArtist(access_token, artist) {
-  const response = await fetch("https://api.spotify.com/v1/search" + `?q=${artist}&type=artist&limit=1`, {
-    method: 'GET',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-  });
-
-  return await response.json();
-}
-
-async function getTracksByArtist(access_token, artist_id) {
-  const response = await fetch(`https://api.spotify.com/v1/artists/${artist_id}/top-tracks?country=US`, {
-    method: 'GET',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-  });
-
-  return await response.json();
-}
-
-/*
-getToken().then(response => {
-  getTrackInfo(response.access_token).then(profile => {
-    console.log(profile)
-  })
-});
-*/
-var artist = "Taylor Swift"
-
-getToken().then(response => {
-  getIDByArtist(response.access_token, artist).then(result => {
-    if (result["artists"]["items"].length == 0) {
-      console.log("No artist with this name exists...")
-      return "No artist founded"
-    } else {
-      artist_id = result["artists"]["items"][0]["id"]  
-    }
-    getTracksByArtist(response.access_token, artist_id).then(result => {
-      console.log(result);
-      app.get("/", (req, res) => {
-        res.send(result);
-      })
-    })
-    })  
-});
 
