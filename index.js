@@ -60,13 +60,13 @@ getToken().then(response => {
   })
 });
 */
-var artist = "周杰伦"
+var artist = "Taylor Swift"
 
 getToken().then(response => {
   getIDByArtist(response.access_token, artist).then(result => {
     if (result["artists"]["items"].length == 0) {
       console.log("No artist with this name exists...")
-      return None
+      return "No artist founded"
     } else {
       artist_id = result["artists"]["items"][0]["id"]  
     }
