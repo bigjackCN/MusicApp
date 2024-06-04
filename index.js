@@ -2,13 +2,14 @@ import express from "express"
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
+import { v4 as uuidv4 } from 'uuid';
 import pg from 'pg';
 
 const { Pool, Client } = pg
  
 const pool = new Pool({
   user: 'postgres',
-  password: '0627',
+  password: 'admin',
   host: 'localhost',
   port: 5432,
   database: 'music',
@@ -34,7 +35,7 @@ app.post("/register", async(req, res) => {
    
   const client = await pool.connect()
   const text = 'INSERT INTO users(userid, username, email, userpassword) VALUES($1, $2, $3, $4) RETURNING *'
-  var userid = 105;
+  var userid = uuidv4();
   var username = req.body["username"];
   var email = req.body["email"];
   var password = req.body["password"];
@@ -77,7 +78,7 @@ app.post("/login", async(req, res) => {
   if (result.rows[0] != undefined && result.rows[0]["userpassword"] == password) {
     res.send(`<h1>Welcome back, </h1><h2>${username}✌️</h2>`);
   } else {
-    res.redirect("/");
+    res.sendFile(__dirname + "/public/login.html");
   }
   
   client.release();
