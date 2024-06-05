@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Register Page</title>
+  <link rel="stylesheet" href="styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
   <div class="wrapper">
-    <form action="/login" method="post">
+    <form action="/register" method="post">
       <h1>Music App</h1>
       <div class="input-box">
         <input type="text" placeholder="Username" name="username" required>
@@ -19,13 +19,13 @@
         <input type="password" placeholder="Password" name="password" required>
         <i class='bx bxs-lock-alt' ></i>
       </div>
-      <div class="remember-forgot">
-        <label><input type="checkbox" hidden></label>
-        <a href="reset.html">Forgot Password</a>
+      <div class="input-box">
+        <input type="email" placeholder="Email" name="email" required>
+        <i class='bx bxs-envelope' ></i>
       </div>
-      <button type="submit" class="btn">Login</button>
+      <button type="submit" class="btn">Register</button>
       <div class="register-link">
-        <p>Don't have an account yet? <a href="register.html">Register</a></p>
+        <p>Already have an account? <a href="index.html">Login</a></p>
       </div>
     </form>
   </div>
