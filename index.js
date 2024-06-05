@@ -67,6 +67,7 @@ app.post("/login", async(req, res) => {
   const values = [username];
 
   const result = await client.query(text, values);
+  console.log(result)
   if (result.rows[0] != undefined && result.rows[0]["userpassword"] == password) {
     res.send(`<h1>Welcome back, </h1><h2>${username}✌️</h2>`);
   } else {
@@ -89,8 +90,17 @@ app.post("/reset", async(req, res) => {
   const username = req.body["username"];
   const email = req.body["email"];
   const password = req.body["password"];
-
-  const text = `UPDATE users SET userpassword = $1 WHERE username = $2 AND email = $3;`;
+/*
+  const query = {
+    // give the query a unique name
+    name: 'reset-password',
+    text: 'UPDATE users SET userpassword = $1 WHERE username = $2 AND email = $3',
+    values: [password, username, email],
+  }
+  
+  const result = await client.query(query)
+  */
+  const text = `UPDATE users SET userpassword = $1 WHERE username = $2 AND email = $3`;
   const values = [password, username, email];
   const result = await client.query(text, values);
   console.log(result.rows[0]);
