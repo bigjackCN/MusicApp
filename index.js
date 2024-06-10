@@ -1,4 +1,6 @@
 import express from "express"
+import { writeFile } from 'node:fs';
+import { Buffer } from 'node:buffer';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
@@ -42,26 +44,12 @@ app.post("/register", async(req, res) => {
   const email = req.body["email"];
   const password = req.body["password"];
 
-  // check for if the username or email already exist
-  const query1 = `SELECT * FROM users WHERE username = $1`;
-  const value1 = [username];
-  const check1 = await client.query(query1, value1);
-  
-  const query2 = `SELECT * FROM users WHERE email = $1`;
-  const value2 = [email];
-  const check2 = await client.query(query2, value2);
-
-  const userExist = check1.rows[0];
-  const emailExist = check2.rows[0];
-  if (userExist != undefined || emailExist != undefined) {
-    res.send(`<script>alert("Username or Email already exists, please use a different one."); window.location.href = "/register.html"; </script>`);
-    res.sendFile(__dirname +"/public/register.html");
-  } else {
-    const text = 'INSERT INTO users(userid, username, email, userpassword) VALUES($1, $2, $3, $4) RETURNING *'
-    const values = [userid, username, email, password];
-    const result = await client.query(text, values);
-    console.log(result.rows[0]);
-  }
+  // if we don't have such user we can insert data into our database
+  const text = 'INSERT INTO users(userid, username, email, userpassword) VALUES($1, $2, $3, $4) RETURNING *'
+  const values = [userid, username, email, password];
+  const result = await client.query(text, values);
+  console.log(result.rows[0]);
+ 
   client.release();
   res.sendFile(__dirname + "/public/index.html");
 
