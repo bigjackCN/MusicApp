@@ -43,10 +43,12 @@ app.post("/register", async(req, res) => {
   const username = req.body["username"];
   const email = req.body["email"];
   const password = req.body["password"];
+  const question = req.body["question"];
+  const answer = req.body["answer"];
 
   // if we don't have such user we can insert data into our database
-  const text = 'INSERT INTO users(userid, username, email, userpassword) VALUES($1, $2, $3, $4) RETURNING *'
-  const values = [userid, username, email, password];
+  const text = `INSERT INTO users(UserID, UserName, Email, UserPassword, SecurityQuestion, SecurityAnswer) SELECT $1, $2, $3, $4, $5, $6 WHERE NOT EXISTS(SELECT * FROM users WHERE UserName=$7 OR Email=$8);`
+  const values = [userid, username, email, password, question, answer, username, email];
   const result = await client.query(text, values);
   console.log(result.rows[0]);
  
@@ -66,7 +68,7 @@ app.post("/login", async(req, res) => {
 
   const password = req.body["password"];
   const username = req.body["username"];
-  const text = `SELECT userpassword FROM users WHERE username = $1`;
+  const text = `SELECT UserPassword FROM users WHERE UserName = $1`;
   const values = [username];
 
   const result = await client.query(text, values);
@@ -93,18 +95,10 @@ app.post("/reset", async(req, res) => {
   const username = req.body["username"];
   const email = req.body["email"];
   const password = req.body["password"];
-/*
-  const query = {
-    // give the query a unique name
-    name: 'reset-password',
-    text: 'UPDATE users SET userpassword = $1 WHERE username = $2 AND email = $3',
-    values: [password, username, email],
-  }
-  
-  const result = await client.query(query)
-  */
-  const text = `UPDATE users SET userpassword = $1 WHERE username = $2 AND email = $3`;
-  const values = [password, username, email];
+  const answer = req.body["answer"];
+
+  const text = `UPDATE users SET UserPassword = $1 WHERE UserName = $2 AND Email = $3 AND EXISTS(SELECT 1 FROM users WHERE UserName=$4 AND SecurityAnswer=$5)`;
+  const values = [password, username, email, username, answer];
   const result = await client.query(text, values);
   console.log(result.rows[0]);
   
