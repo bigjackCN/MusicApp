@@ -4,7 +4,7 @@ CREATE TABLE users(
 	UserName varchar(45) UNIQUE,
 	Email varchar(45) UNIQUE,
     UserPassword varchar(45),
-	SecurityQuestion varchar(45),
+	SecurityQuestion varchar(100),
 	SecurityAnswer varchar(45)
 );
 

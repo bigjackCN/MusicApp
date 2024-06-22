@@ -11,8 +11,7 @@ const { Pool, Client } = pg
  
 const pool = new Pool({
   user: 'postgres',
-  password: '0627', // for testing
-  //password: 'admin',
+  password: 'admin',
   host: 'localhost',
   port: 5432,
   database: 'postgres',
@@ -68,7 +67,7 @@ app.post("/login", async(req, res) => {
 
   const password = req.body["password"];
   const username = req.body["username"];
-  const text = `SELECT UserPassword FROM users WHERE UserName = $1`;
+  const text = `SELECT UserPassword FROM users WHERE UserName = $1;`;
   const values = [username];
 
   const result = await client.query(text, values);
@@ -97,7 +96,7 @@ app.post("/reset", async(req, res) => {
   const password = req.body["password"];
   const answer = req.body["answer"];
 
-  const text = `UPDATE users SET UserPassword = $1 WHERE UserName = $2 AND Email = $3 AND EXISTS(SELECT 1 FROM users WHERE UserName=$4 AND SecurityAnswer=$5)`;
+  const text = `UPDATE users SET UserPassword = $1 WHERE UserName = $2 AND Email = $3 AND EXISTS(SELECT 1 FROM users WHERE UserName=$4 AND SecurityAnswer=$5);`;
   const values = [password, username, email, username, answer];
   const result = await client.query(text, values);
   console.log(result.rows[0]);
