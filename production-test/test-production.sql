@@ -112,8 +112,17 @@ SELECT AlbumID, AlbumTitle, ReleaseDate, ArtistID, Rating FROM Albums WHERE Genr
 -- TEST FOR FUNCTION 6
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
-SELECT Genre, AlbumID, AlbumTitle, AVG(Rating) AS AverageRating
-FROM Albums
-GROUP BY Genre, AlbumID, AlbumTitle
-ORDER BY AverageRating DESC
-LIMIT 10;
+
+-- Test11: Select Top 10 trending track from our tracks table
+-- We limit 10 since our production data sheet now has over 1000 tracks
+
+SELECT Genre, AlbumID, AlbumTitle FROM Albums WHERE Rating = '10' GROUP BY Genre, AlbumID, AlbumTitle LIMIT 10;
+
+-------------------------------------------------------------------------------------------
+
+-- Test12: Select Top 10 rap track from our tracks table
+-- We limit 10 since our production data sheet now has over 1000 tracks
+SELECT Genre, AlbumID, AlbumTitle FROM Albums WHERE Rating = '10' AND Genre='rap' GROUP BY Genre, AlbumID, AlbumTitle LIMIT 10;
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
