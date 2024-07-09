@@ -126,7 +126,7 @@ app.post("/search", async(req, res) => {
   const client = await pool.connect()
 
   const trackName = req.body["trackName"];
-  const text = `SELECT * FROM tracks WHERE TrackTitle=$1;`;
+  const text = `SELECT * FROM TrackSearch WHERE TrackTitle=$1;`;
   const values = [trackName];
   const result = await client.query(text, values);
 

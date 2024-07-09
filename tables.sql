@@ -57,3 +57,9 @@ CREATE TABLE playlistTracks(
 	CONSTRAINT fk_playlist FOREIGN KEY(PlaylistID) REFERENCES playlists(PlaylistID),
 	CONSTRAINT fk_track FOREIGN KEY(TrackID) REFERENCES tracks(TrackID)
 );
+
+-- TrackSearch Table Created to match the Artist by Album
+CREATE TABLE TrackSearch AS 
+(SELECT TrackTitle, ArtistName, AlbumTitle FROM tracks 
+JOIN artists ON artists.ArtistID=tracks.ArtistID
+JOIN albums ON albums.AlbumID=tracks.AlbumID);

@@ -45,9 +45,11 @@
             <h3 class="track-name">
               <%= tracks[i].tracktitle %>
             </h3>
-            <p class="author lead">Album by
+            <p class="author lead" style="color: rgba(253, 237, 5, 0.808);"> <em><%= tracks[i].albumtitle %> by </em>
               <span>
-                <%= tracks[i].artistid %>
+                <b>
+                <%= tracks[i].artistname %>
+              </b>
               </span>
             </p>
           </div>
