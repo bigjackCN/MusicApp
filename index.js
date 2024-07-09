@@ -11,7 +11,8 @@ const { Pool, Client } = pg
  
 const pool = new Pool({
   user: 'postgres',
-  password: 'admin',
+  //password: 'admin',
+  password: '0627',
   host: 'localhost',
   port: 5432,
   database: 'postgres',
@@ -70,10 +71,18 @@ app.post("/login", async(req, res) => {
   const text = `SELECT UserPassword FROM users WHERE UserName = $1;`;
   const values = [username];
 
+  //
+  req.app.locals.username = username;
+
   const result = await client.query(text, values);
   console.log(result)
   if (result.rows[0] != undefined && result.rows[0]["userpassword"] == password) {
-    res.send(`<h1>Welcome back, </h1><h2>${username}✌️</h2>`);
+    // Head to User Page
+    //res.sendFile(__dirname + "/public/user.html");
+    res.render(__dirname + "/public/user.ejs", {
+      username: req.app.locals.username,
+      tracks: [],
+    });
   } else {
     res.sendFile(__dirname + "/public/index.html");
   }
@@ -105,6 +114,69 @@ app.post("/reset", async(req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 
 });
+
+// Handle search for track
+app.post("/search", async(req, res) => {
+  
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(-1)
+  })
+   
+  const client = await pool.connect()
+
+  const trackName = req.body["trackName"];
+  const text = `SELECT * FROM tracks WHERE TrackTitle=$1;`;
+  const values = [trackName];
+  const result = await client.query(text, values);
+
+  req.app.locals.trackName = trackName;
+
+  console.log(result.rows);
+  if (result.rows[0] == undefined) {
+    res.render(__dirname + "/public/user.ejs", {
+      username: req.app.locals.username,
+      tracks: [],
+    });
+  } else {
+    res.render(__dirname + "/public/user.ejs", {
+      username: req.app.locals.username,
+      tracks: result.rows,
+    });
+  }
+  
+  client.release();
+});
+
+app.post("/rate", async(req, res) => {
+
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(-1)
+  });
+   
+  const client = await pool.connect();
+
+  const trackName = req.app.locals.trackName;
+  const rating = req.body["rating"];
+  console.log(trackName, rating);
+  
+  // Now want to update the Track rating and album rating
+  // handle update Track rating first
+  const text = `UPDATE tracks SET Rating = DIV((SELECT (SELECT Rating from tracks WHERE TrackTitle=$1) ::DECIMAL + $2), 2) WHERE TrackTitle=$3;`;
+  const values = [trackName, rating, trackName];
+  const result = await client.query(text, values);
+  console.log(result.rows[0]);
+  
+  client.release();
+});
+
+
+app.post("/logout", async(req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+
 
 app.listen(port, ()=> {
     console.log(`Server running on port ${port}.`);

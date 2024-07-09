@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="user.css">
+</head>
+<body>
+    <h1>Vibe Link</h1>
+    <h2>My PlayList</h2>
+    <form action="/logout" method="post">
+        <button type="submit" class="btn">Logout</button>
+    </form>
+    <form action="/search" method="post">
+        <div class="input-box">
+            <input type="text" placeholder="Search by trackName" name="trackName" required>
+            <i class='bx bxs-user'></i>
+          </div>
+        <button type="submit" class="btn">Search</button>
+    </form>
+</body>
+</html>

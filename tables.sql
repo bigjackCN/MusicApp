@@ -1,3 +1,5 @@
+-- tables need to generating
+
 -- Users Table
 CREATE TABLE users(
 	UserID varchar(45) PRIMARY KEY,
@@ -11,7 +13,7 @@ CREATE TABLE users(
 -- Artists Table
 CREATE TABLE artists(
 	ArtistID varchar(45) PRIMARY KEY,
-	ArtistName varchar(45) UNIQUE
+	ArtistName varchar(45)
 );
 
 -- Albums Table
@@ -34,7 +36,24 @@ CREATE TABLE tracks(
 	Duration varchar(45),
 	TrackLanguage varchar(45),
 	Rating varchar(45),
+	Genre varchar(45),
 	CONSTRAINT fk_artist FOREIGN KEY(ArtistID) REFERENCES artists(ArtistID),
 	CONSTRAINT fk_album FOREIGN KEY(AlbumID) REFERENCES albums(AlbumID)
 );
 
+-- Playlist Table
+CREATE TABLE playlists(
+	PlaylistID varchar(45) PRIMARY KEY,
+	UserID varchar(45),
+	Name varchar(100),
+	CONSTRAINT fk_user FOREIGN KEY(UserID) REFERENCES users(UserID)
+);
+
+-- PlaylistTracks Table
+CREATE TABLE playlistTracks(
+	PlaylistTrackID varchar(45) PRIMARY KEY,
+	PlaylistID varchar(45),
+	TrackID varchar(45),
+	CONSTRAINT fk_playlist FOREIGN KEY(PlaylistID) REFERENCES playlists(PlaylistID),
+	CONSTRAINT fk_track FOREIGN KEY(TrackID) REFERENCES tracks(TrackID)
+);
