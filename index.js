@@ -11,8 +11,8 @@ const { Pool, Client } = pg
  
 const pool = new Pool({
   user: 'postgres',
-  //password: 'admin',
-  password: '0627',
+  password: 'admin',
+  //password: '0627',
   host: 'localhost',
   port: 5432,
   database: 'postgres',

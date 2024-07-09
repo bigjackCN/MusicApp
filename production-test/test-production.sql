@@ -74,3 +74,46 @@ SELECT * FROM TrackSearch WHERE TrackTitle='I Can See';
 -- Test7: fail to find the track information from search
 -- Make sure you have TrackSearch table which can be find at table.sql 
 SELECT * FROM TrackSearch WHERE TrackTitle='This is not a possible track';
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+
+-- TEST FOR FUNCTION 4
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+-- Test8: Rate the track and update with new rating
+-- Notice the current rating for 'Body On My' is 1 in our production table
+UPDATE tracks SET Rating = DIV((SELECT (SELECT Rating from tracks WHERE TrackTitle='Body On My') ::DECIMAL + 10), 2) WHERE TrackTitle='Body On My';
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+
+-- TEST FOR FUNCTION 5
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+-- Test9: Select all the tracks that has Genre of 'latin'
+-- We will expect 176 rows being selected
+SELECT AlbumID, AlbumTitle, ReleaseDate, ArtistID, Rating FROM Albums WHERE Genre = 'latin';
+
+-------------------------------------------------------------------------------------------
+
+-- Test10: Select null tracks that has Genre of 'null'
+-- We will expect 0 rows being selected
+SELECT AlbumID, AlbumTitle, ReleaseDate, ArtistID, Rating FROM Albums WHERE Genre = 'null';
+
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+-- TEST FOR FUNCTION 6
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+SELECT Genre, AlbumID, AlbumTitle, AVG(Rating) AS AverageRating
+FROM Albums
+GROUP BY Genre, AlbumID, AlbumTitle
+ORDER BY AverageRating DESC
+LIMIT 10;
