@@ -24,6 +24,65 @@
           </form>
         </div>
       </nav>
+
+      <div class="row">
+        <div class="col-auto">
+          <form action="/pop" method="post">
+            <button type="submit" class="btn btn-primary">TOP 10: Pop</button>
+          </form>
+        </div>
+
+        <div class="col-auto">
+          <form action="/rap" method="post">
+            <button type="submit" class="btn btn-secondary">TOP 10: Rap</button>
+          </form>
+        </div>
+
+        <div class="col-auto">
+          <form action="/rock" method="post">
+            <button type="submit" class="btn btn-success">TOP 10: Rock</button>
+          </form>
+        </div>
+
+        <div class="col-auto">
+          <form action="/latin" method="post">
+            <button type="submit" class="btn btn-danger">TOP 10: Latin</button>
+          </form>
+        </div>
+
+        <div class="col-auto">
+          <form action="/rnb" method="post">
+            <button type="submit" class="btn btn-warning">TOP 10: R&B</button>
+          </form>
+        </div>
+
+        <div class="col-auto">
+          <form action="/edm" method="post">
+            <button type="submit" class="btn btn-info">TOP 10: Edm</button>
+          </form>
+        </div>
+
+        <div class="col-auto">
+          <form action="/english" method="post">
+            <button type="submit" class="btn btn-light">TOP 10: English</button>
+          </form> 
+        </div>
+
+        <div class="col-auto">
+          <form action="/spanish" method="post">
+            <button type="submit" class="btn btn-dark">TOP 10: Spanish</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="my-5"> 
+      <form action="/userGallery" method="post">
+        <button type="submit" class="btn btn-outline-warning">User Gallery</button>
+      </form>
+    </div>
+      
+
       <div class="">
         <div class="search-bar col-md-6 mx-auto">
           <form action="/search" method="post">
@@ -45,13 +104,15 @@
             <h3 class="track-name">
               <%= tracks[i].tracktitle %>
             </h3>
-            <p class="author lead" style="color: rgba(253, 237, 5, 0.808);"> <em><%= tracks[i].albumtitle %> by </em>
+            <p class="author lead" style="color: #000000;"> <em>Album: <%= tracks[i].albumtitle %> by </em>
               <span>
                 <b>
-                <%= tracks[i].artistname %>
-              </b>
+                  <%= tracks[i].artistname %>
+                </b>
               </span>
             </p>
+            <p>Release on <%= tracks[i].releasedate %></p>
+            <p>Genre: <%= tracks[i].genre %></p>
           </div>
           <div class="col-lg-6 text-center">
             <form action="/rate" method="post">
@@ -60,6 +121,7 @@
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Rate</button>
               </div>
             </form>
+            
           </div>
         </div>
         <% } %>

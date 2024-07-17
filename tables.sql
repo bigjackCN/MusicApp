@@ -60,6 +60,15 @@ CREATE TABLE playlistTracks(
 
 -- TrackSearch Table Created to match the Artist by Album
 CREATE TABLE TrackSearch AS 
-(SELECT TrackTitle, ArtistName, AlbumTitle FROM tracks 
+(SELECT tracks.TrackTitle, artists.ArtistName, albums.AlbumTitle, albums.ReleaseDate, albums.Genre FROM tracks 
 JOIN artists ON artists.ArtistID=tracks.ArtistID
 JOIN albums ON albums.AlbumID=tracks.AlbumID);
+
+
+
+-- UserGallery Table Created to search through the tracks within playlist
+CREATE TABLE UserGallery AS
+(SELECT tracks.TrackTitle, playlists.Name, users.UserName FROM tracks
+JOIN playlistTracks ON playlistTracks.TrackID = tracks.TrackID
+JOIN playlists ON playlistTracks.PlaylistID = playlists.PlaylistID
+JOIN users ON playlists.UserID = users.UserID);

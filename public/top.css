@@ -1,7 +1,7 @@
 .cnt{
     background-color: #13141b;
-    color: #000000;
-    background-image: url(background.jpg);
+    color: #630101;
+    background-image: url(top.jpg);
     background-repeat: no-repeat;
     background-position: top;
     min-height: 100vh;
@@ -17,7 +17,10 @@
 
 
 .single-result{
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
 }
 
+.top-10 .btn:hover {
+    color: rgb(0, 243, 182);
+}
