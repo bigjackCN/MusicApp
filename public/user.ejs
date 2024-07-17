@@ -98,13 +98,13 @@
         <% for(let i = 0; i < tracks.length; i++) { %>
         <div class="single-result row align-items-center my-3 p-3">
           <div class="col-lg-2 text-center">
-            <img class src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/12in-Vinyl-LP-Record-Angle.jpg/800px-12in-Vinyl-LP-Record-Angle.jpg" style="height:50px ;" alt="" />
+            <img class src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Circle-icons-music.svg/1024px-Circle-icons-music.svg.png" style="height:100px ;" alt="" />
           </div>
           <div class="col-lg-4 text-center">
             <h3 class="track-name">
               <%= tracks[i].tracktitle %>
             </h3>
-            <p class="author lead" style="color: #000000;"> <em>Album: <%= tracks[i].albumtitle %> by </em>
+            <p class="author lead" style="color: #000000;"> <em>Album: <%= tracks[i].albumtitle %> -- </em>
               <span>
                 <b>
                   <%= tracks[i].artistname %>
@@ -118,11 +118,15 @@
             <form action="/rate" method="post">
               <div class="input-group mb-3 w-50">
                 <input type="text" class="form-control" placeholder="0 ~ 10" aria-label="" aria-describedby="button-addon2" name="rating" required>
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Rate</button>
+                <button class="btn btn-dark" type="submit" id="button-addon2">Rate</button>
               </div>
             </form>
-            
           </div>
+
+          <div class="col-lg-4 text-center">
+            <form action="/addtracks" method="post">
+              <button class="btn btn-secondary" type="submit" id="button-addon3">Add to playlist</button>
+            </form>
         </div>
         <% } %>
       </div>

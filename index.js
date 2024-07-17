@@ -535,6 +535,31 @@ app.post("/userGallery", async(req, res) => {
   });
 });
 
+// add the tracks to our UserGallery Tables
+app.post("/addtracks", async(req, res) => {
+  
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(-1)
+  })
+   
+  const client = await pool.connect()
+
+  const trackName = req.app.locals.trackName;
+  const userName = req.app.locals.username;
+  const playlistName = userName + "_playlist";
+  const text = `INSERT INTO UserGallery(TrackTitle, Name, UserName) 
+                VALUES($1, $2, $3)`
+  const values = [trackName,playlistName, userName];
+  const result = await client.query(text, values);
+
+  console.log(result.rows[0]);
+  console.log(trackName);
+  console.log(userName);
+
+  client.release();
+});
+
 
 app.listen(port, ()=> {
     console.log(`Server running on port ${port}.`);
