@@ -49,6 +49,11 @@ CREATE TABLE playlists(
 	CONSTRAINT fk_user FOREIGN KEY(UserID) REFERENCES users(UserID)
 );
 
+
+-----------------------------------------------------------------------------------------------------
+-- After Import data sheet into database
+-----------------------------------------------------------------------------------------------------
+
 -- PlaylistTracks Table
 CREATE TABLE playlistTracks(
 	PlaylistTrackID varchar(45) PRIMARY KEY,
