@@ -2,7 +2,7 @@
     background-color: #13141b;
     color: #000000;
     background-image: url(usergallery.jpg);
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-position: top;
     min-height: 100vh;
 }

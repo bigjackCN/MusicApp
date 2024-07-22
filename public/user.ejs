@@ -25,71 +25,19 @@
         </div>
       </nav>
 
-      <div class="row">
-        <div class="col-auto">
-          <form action="/pop" method="post">
-            <button type="submit" class="btn btn-primary">TOP 10: Pop</button>
-          </form>
-        </div>
-
-        <div class="col-auto">
-          <form action="/rap" method="post">
-            <button type="submit" class="btn btn-secondary">TOP 10: Rap</button>
-          </form>
-        </div>
-
-        <div class="col-auto">
-          <form action="/rock" method="post">
-            <button type="submit" class="btn btn-success">TOP 10: Rock</button>
-          </form>
-        </div>
-
-        <div class="col-auto">
-          <form action="/latin" method="post">
-            <button type="submit" class="btn btn-danger">TOP 10: Latin</button>
-          </form>
-        </div>
-
-        <div class="col-auto">
-          <form action="/rnb" method="post">
-            <button type="submit" class="btn btn-warning">TOP 10: R&B</button>
-          </form>
-        </div>
-
-        <div class="col-auto">
-          <form action="/edm" method="post">
-            <button type="submit" class="btn btn-info">TOP 10: Edm</button>
-          </form>
-        </div>
-
-        <div class="col-auto">
-          <form action="/english" method="post">
-            <button type="submit" class="btn btn-light">TOP 10: English</button>
-          </form> 
-        </div>
-
-        <div class="col-auto">
-          <form action="/spanish" method="post">
-            <button type="submit" class="btn btn-dark">TOP 10: Spanish</button>
-          </form>
-        </div>
-
+      <div class="mb-5 mx-5">
+        <form action="/userGallery" method="post">
+          <button type="submit" class="btn btn-success btn-lg">User Gallery</button>
+        </form>
       </div>
 
-      <div class="my-5"> 
-      <form action="/userGallery" method="post">
-        <button type="submit" class="btn btn-outline-warning">User Gallery</button>
-      </form>
-    </div>
-      
-
-      <div class="">
+      <div class="mb-5">
         <div class="search-bar col-md-6 mx-auto">
           <form action="/search" method="post">
             <h1 class="text-center my-5" style="color:white;">Vibe Link</h1>
             <div class="input-group mb-3">
               <input id="search-field" type="text" class="form-control" placeholder="Enter your artist track name" name="trackName" required>
-              <button type="submit" class="btn btn-primary search-btn">Search</button>
+              <button type="submit" class="btn btn-success search-btn">Search</button>
             </div>
           </form>
         </div>
@@ -118,20 +66,112 @@
             <form action="/rate" method="post">
               <div class="input-group mb-3 w-50">
                 <input type="text" class="form-control" placeholder="0 ~ 10" aria-label="" aria-describedby="button-addon2" name="rating" required>
-                <button class="btn btn-dark" type="submit" id="button-addon2">Rate</button>
+                <button class="btn btn-success" type="submit" id="button-addon2">Rate</button>
               </div>
             </form>
           </div>
 
-          <div class="col-lg-4 text-center">
+          <div class="col-lg-2 text-center">
             <form action="/addtracks" method="post">
-              <button class="btn btn-secondary" type="submit" id="button-addon3">Add to playlist</button>
+              <button class="btn btn-success" type="submit" id="button-addon3">Add to playlist</button>
             </form>
+          </div>
+          <% } %>
         </div>
-        <% } %>
       </div>
+
+      <div class="container-fluid w-75 mt-5 pb-5">
+        <div class="card-group">
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/2022/03/6.-Pink-Floyd-%E2%80%98Dark-Side-of-the-Moon-1973-album-art-billboard-1240.jpg?w=768" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">POP</h5>
+              <p class="card-text">A pop song is a catchy, mainstream tune with memorable melodies, simple lyrics, and upbeat rhythms, appealing to a broad audience.</p>
+              <form action="/pop" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/2023/07/outkast-stankonia-cover-2000-billboard-1240.jpg?w=768" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">RAP</h5>
+              <p class="card-text">A rap song features rhythmic speech, strong beats, and rhymes. It often addresses social issues, personal experiences, or street life.</p>
+              <form action="/rap" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/media/ariana-grande-sweetner-album-art-2018-billboard-1240.jpg?w=768" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">ROCK</h5>
+              <p class="card-text">A rock song features electric guitars, strong rhythms, and powerful vocals. It often explores themes of rebellion, love, and personal struggles.</p>
+              <form action="/rock" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/2022/03/30.-FKA-Twigs-%E2%80%98LP1-2014-album-art-billboard-1240.jpg?w=768" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">LATIN</h5>
+              <p class="card-text">A Latin song features rhythmic beats, vibrant melodies, and often incorporates Spanish or Portuguese lyrics, celebrating culture, dance, and passion.</p>
+              <form action="/latin" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-group">
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/2021/12/Japanese-Breakfast-Jubilee-album-art-2021-billboard-1240.jpg?w=768" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">R&B</h5>
+              <p class="card-text">A rhythm and blues song features soulful vocals, strong beats, and emotive lyrics. It blends jazz, gospel, and blues influences.</p>
+              <form action="/rnb" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/2023/07/SZA-SOS-album-art-billboard-1240.jpg?w=1024" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">EDM</h5>
+              <p class="card-text">An edm song features electronic beats, synthesized sounds, and repetitive hooks. It is designed for dance floors and energetic performances.</p>
+              <form action="/edm" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/2023/07/rihanna-anti-cover-2016-billboard-1240.jpg?w=768" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">ENGLISH</h5>
+              <p class="card-text">An english song features lyrics in English, spanning various genres and styles, and often reflecting cultural themes and personal stories.</p>
+              <form action="/english" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://www.billboard.com/wp-content/uploads/2022/03/37.-Madonna-%E2%80%98True-Blue-1986-album-cover-billboard-1240.jpg?w=774" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">SPANISH</h5>
+              <p class="card-text">A Spanish song features lyrics in Spanish, embracing diverse genres and rhythms, often highlighting cultural heritage, emotions, and vivid storytelling.</p>
+              <form action="/spanish" method="post">
+                <button type="submit" class="btn btn-danger">Top 10</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="py-5">
+      </div>
+
     </div>
-  </div>
 </body>
 
 </html>
