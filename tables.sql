@@ -49,11 +49,6 @@ CREATE TABLE playlists(
 	CONSTRAINT fk_user FOREIGN KEY(UserID) REFERENCES users(UserID)
 );
 
-
------------------------------------------------------------------------------------------------------
--- After Import data sheet into database
------------------------------------------------------------------------------------------------------
-
 -- PlaylistTracks Table
 CREATE TABLE playlistTracks(
 	PlaylistTrackID varchar(45) PRIMARY KEY,
@@ -62,6 +57,11 @@ CREATE TABLE playlistTracks(
 	CONSTRAINT fk_playlist FOREIGN KEY(PlaylistID) REFERENCES playlists(PlaylistID),
 	CONSTRAINT fk_track FOREIGN KEY(TrackID) REFERENCES tracks(TrackID)
 );
+
+-----------------------------------------------------------------------------------------------------
+-- After Import data sheet into database
+-----------------------------------------------------------------------------------------------------
+
 
 -- TrackSearch Table Created to match the Artist by Album
 CREATE TABLE TrackSearch AS 
