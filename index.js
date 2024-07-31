@@ -25,10 +25,12 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+// App home directory
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
+// route for user registeration
 app.post("/register", async(req, res) => {
   
   pool.on('error', (err, client) => {
@@ -57,6 +59,8 @@ app.post("/register", async(req, res) => {
 
 });
 
+
+// route for user login 
 app.post("/login", async(req, res) => {
 
   pool.on('error', (err, client) => {
@@ -91,6 +95,7 @@ app.post("/login", async(req, res) => {
 
 });
 
+// route for reset password
 app.post("/reset", async(req, res) => {
   
   pool.on('error', (err, client) => {
@@ -116,7 +121,7 @@ app.post("/reset", async(req, res) => {
 
 });
 
-// Handle search for track
+// route for search for track
 app.post("/search", async(req, res) => {
   
   pool.on('error', (err, client) => {
@@ -149,6 +154,7 @@ app.post("/search", async(req, res) => {
   client.release();
 });
 
+// route for rate the track
 app.post("/rate", async(req, res) => {
 
   pool.on('error', (err, client) => {
@@ -172,7 +178,7 @@ app.post("/rate", async(req, res) => {
   client.release();
 });
 
-
+// route to logout from user page
 app.post("/logout", async(req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
@@ -497,6 +503,8 @@ app.post("/return", async(req, res) => {
 
 //  ----------------------------------Line Break-------------------------------------
 
+// display the gallery search for the playlists user has
+
 app.post("/gallery", async(req, res) => {
   
   pool.on('error', (err, client) => {
@@ -527,6 +535,7 @@ app.post("/gallery", async(req, res) => {
   client.release();
 });
 
+// route for user gallery page
 app.post("/userGallery", async(req, res) => {
   res.render(__dirname + "/public/gallery.ejs", {
     username: req.app.locals.username,
@@ -559,7 +568,7 @@ app.post("/addtracks", async(req, res) => {
   client.release();
 });
 
-
+// app server listening
 app.listen(port, ()=> {
     console.log(`Server running on port ${port}.`);
 });

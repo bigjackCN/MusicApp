@@ -1,6 +1,6 @@
 -- This is testing for our feature using production table
 
--- TEST FOR FUNCTION 1
+-- TEST FOR R6 Feature/Functionality 1: Create Account
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ NOT EXISTS(SELECT * FROM users WHERE UserName='test' OR Email='test3@gmail.com')
 
 
 
--- TEST FOR FUNCTION 2
+-- TEST FOR R7 Feature/Functionality 2: User Login
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ SELECT UserPassword FROM users WHERE UserName='test2';
 
 
 
--- TEST FOR FUNCTION 3
+-- TEST FOR R8 Feature/Functionality 3: Search by track
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
@@ -79,7 +79,7 @@ SELECT * FROM TrackSearch WHERE TrackTitle='This is not a possible track';
 -------------------------------------------------------------------------------------------
 
 
--- TEST FOR FUNCTION 4
+-- TEST FOR R9 Feature/Functionality 4: Rate the track and update the rating
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
@@ -91,7 +91,7 @@ UPDATE tracks SET Rating = DIV((SELECT (SELECT Rating from tracks WHERE TrackTit
 -------------------------------------------------------------------------------------------
 
 
--- TEST FOR FUNCTION 5
+-- TEST FOR R10 Feature/Functionality 5:  Display albums with same genre
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
@@ -109,7 +109,7 @@ SELECT AlbumID, AlbumTitle, ReleaseDate, ArtistID, Rating FROM Albums WHERE Genr
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
--- TEST FOR FUNCTION 6
+-- TEST FOR R11 Feature/Functionality 6: Display top 10 rating albums based on categories
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
